@@ -375,24 +375,6 @@ static SDispatchResult swapActiveWorkspaces(std::string args) {
     PWORKSPACEB->m_id   = TMPID;
     PWORKSPACEB->m_name = TMPNAME;
 
-    // swap previous workspaces
-    Desktop::History::workspaceTracker()->gc();
-
-    auto workspacePrevDataA = Desktop::History::workspaceTracker()->dataFor(PWORKSPACEA);
-    auto workspacePrevDataB = Desktop::History::workspaceTracker()->dataFor(PWORKSPACEB);
-
-    auto tmpPrevData = workspacePrevDataA;
-
-    workspacePrevDataA.previous     = workspacePrevDataB.previous;
-    workspacePrevDataA.previousName = workspacePrevDataB.previousName;
-    workspacePrevDataA.previousID   = workspacePrevDataB.previousID;
-    workspacePrevDataA.previousMon  = workspacePrevDataB.previousMon;
-
-    workspacePrevDataB.previous     = tmpPrevData.previous;
-    workspacePrevDataB.previousName = tmpPrevData.previousName;
-    workspacePrevDataB.previousID   = tmpPrevData.previousID;
-    workspacePrevDataB.previousMon  = tmpPrevData.previousMon;
-
     // swap layouts
     auto workspaceLayoutA = PWORKSPACEA->m_space;
     auto workspaceLayoutB = PWORKSPACEB->m_space;
